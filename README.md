@@ -66,9 +66,14 @@ Before running this project, make sure you have the following prerequisites inst
     ```sh
     cd blog-app
 3. Run the program:
+
     ```sh
     rails s
-
+4. Run tests:
+  
+  ```sh
+    rspec 
+  ```
 <!-- AUTHORS -->
 
 ## 👥 Authors <a name="authors"></a>
