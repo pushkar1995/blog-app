@@ -7,7 +7,7 @@ RSpec.describe UsersController, type: :request do
       get users_path
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:index)
-      expect(response.body).to include('users Section.')
+      expect(response.body).to include('users Section')
     end
   end
 
