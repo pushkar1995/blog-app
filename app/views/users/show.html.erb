@@ -1,20 +1,32 @@
-<div id="user-container">
-  <%= render partial: "users/user_info", locals: { user: @user } %>
+<h1>Specific User</h1>
+
+<div class="user-card">
+  <%= image_tag(@user.photo, alt: @user.name, class: "user-photo") %>
+  <div class="user-details">
+    <h2><%= @user.name %></h2>
+    <p>Number of posts: <%= @user.posts.count %></p>
+  </div>
 </div>
 
-<div id="user-biography">
-  <h3>Biography</h3>
-  <p><%= @user.bio %></p>
+<div class="user-bio">
+  <h2>Bio</h2>
+  <p>
+    <%= @user.bio %>
+  </p>
 </div>
 
-<div id="post-container">
-  <% @user.recent_posts.each_with_index do |post, i| %>
-    <li>
-      <%= link_to "/users/#{@user.id}/posts/#{post.id}", id: "post" do %>
-        <%= render partial: "posts/post_info", locals: { post: post } %>
-      <% end %>
-    </li>
+<div class="user-posts">
+  <% @user.posts.limit(3).each do |post| %>
+    <div class="post">
+      <h2><%= link_to "#{post.title}", user_post_path(post.author, post) %></h2>
+      <p><%= post.text %></p>
+      <p class="counter">Comments: <%= post.comments_counter %>, Likes: <%= post.likes_counter %></p>
+    </div>
+  <% end %>
+
+  <% if @user.posts.count > 0 %>
+    <button class="see-all-posts">
+      <%= link_to "See all posts", user_posts_path(@user) %>
+    </button>
   <% end %>
 </div>
-
-<%= link_to "See all posts", "/users/#{@user.id}/posts?page=1", class: "see-all-posts-button" %>
