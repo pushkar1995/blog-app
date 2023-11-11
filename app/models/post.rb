@@ -19,4 +19,11 @@ class Post < ApplicationRecord
   def recent_comments
     Comment.where(post_id: id).order(created_at: :desc).limit(5)
   end
+
+  private
+
+  def set_defaults
+    self.comments_counter ||= 0
+    self.likes_counter ||= 0
+  end
 end
