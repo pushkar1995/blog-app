@@ -17,7 +17,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    puts 'i am here pushkar'
     @user = User.find(params[:user_id])
     @post = Post.create(author: @user, title: params[:post][:title], text: params[:post][:text], comments_counter: 0,
                         likes_counter: 0)
