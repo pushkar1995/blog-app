@@ -17,17 +17,16 @@ class PostsController < ApplicationController
   end
 
   def create
+    puts 'i am here pushkar'
     @user = User.find(params[:user_id])
-    @post = @user.posts.build(post_params)
-
+    @post = Post.create(author: @user, title: params[:post][:title], text: params[:post][:text], comments_counter: 0,
+                        likes_counter: 0)
     if @post.save
-      redirect_to user_post_path(@user, @post), notice: 'Post was successfully created.'
+      redirect_to user_posts_path(@user)
     else
       render :new
     end
   end
-
-  private
 
   def post_params
     params.require(:post).permit(:title, :text)
