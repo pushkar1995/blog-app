@@ -25,7 +25,7 @@
     end
 
     scenario 'Displays Button that lets me view all of a user posts, and redirects to the posts when clicked' do
-      expect(page).to have_link('See all posts')
+      expect(page).to button_link('See all posts')
       click_link 'See all posts'
       sleep(1)
       expect(current_path).to eq(user_posts_path(@user.id))
