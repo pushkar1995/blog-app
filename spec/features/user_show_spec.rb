@@ -27,8 +27,14 @@
     scenario 'Displays Button that lets me view all of a user posts, and redirects to the posts when clicked' do
       expect(page).to button_link('See all posts')
       click_link 'See all posts'
-      sleep(1)
-      expect(current_path).to eq(user_posts_path(@user.id))
+      # sleep(1)
+      # expect(current_path).to eq(user_posts_path(@user.id))
+    end
+
+    it 'Should redirect to posts index  page when the see all posts butoon is clicked' do
+      see_all_link_element = find('a', text: 'See all posts')
+      see_all_link_element.click
+      expect(current_path).to eq("/users/#{@user.id}/posts")
     end
 
   #  scenario 'click on user post redirects to that post show page.' do
