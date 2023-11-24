@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'users', type: :feature do
   describe 'index' do
-    # let(:user1) { User.create(name: 'Pushkar', photo: 'photo_url', bio: 'text', posts_counter: 0) }
-    # let(:user2) { User.create(name: 'John', photo: 'photo_url_2', bio: 'Rabbit officer', posts_counter: 0) }
     let(:user1) { User.create(name: 'Nick', photo: 'https://secure.b8cdn.com/images/uploads/user_photos/67/56263867_20211019183159.jpg', bio: 'Rabbit officer', posts_counter: 0) }
 
     let(:post4) do
