@@ -19,9 +19,9 @@
    end
 
     scenario 'Displays user 3 posts' do
-      expect(page).to have_content(post1.title)
-      expect(page).to have_content(post2.title)
-      expect(page).to have_content(post3.title)
+      expect(page).to have_content(@post1.title)
+      expect(page).to have_content(@post2.title)
+      expect(page).to have_content(@post3.title)
     end
 
     scenario 'Displays Button that lets me view all of a user posts, and redirects to the posts when clicked' do
