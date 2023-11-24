@@ -2,7 +2,7 @@
 
  RSpec.describe 'User', type: :feature do
 
-  before each: do
+  before :each do
     @user=User.create(name: 'Pushkar', bio: 'A student from Morocco', photo: 'https://avatars.githubusercontent.com/u/130588108?v=4')
     @post1=Post.create(author: user1, title: 'Post 01')
     @post2=Post.create(author: user1, title: 'Post 02')
