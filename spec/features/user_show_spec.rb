@@ -1,6 +1,6 @@
  require 'rails_helper'
 
- RSpec.feature 'User show page' do
+ RSpec.describe 'User', type: :feature do
 
   before each: do
     @user=User.create(name: 'Pushkar', bio: 'A student from Morocco', photo: 'https://avatars.githubusercontent.com/u/130588108?v=4')
