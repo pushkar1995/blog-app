@@ -2,8 +2,6 @@ class Like < ApplicationRecord
   belongs_to :user
   belongs_to :post
 
-  validates :user, uniqueness: { scope: :post }
-
   after_create :increment_post_likes_counter
 
   def increment_post_likes_counter

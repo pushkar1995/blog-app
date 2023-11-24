@@ -1,33 +1,51 @@
-# require 'rails_helper'
+require 'rails_helper'
 
-# RSpec.feature 'User Index Page' do
-#   let!(:user1) { User.create(name: 'Pushkar', photo: 'https://avatars.githubusercontent.com/u/130588108?v=4') }
-#   let!(:user2) { User.create(name: 'John', photo: 'https://secure.b8cdn.com/images/uploads/user_photos/67/56263867_20211019183159.jpg') }
-#   let!(:post1) { Post.create(author: user1, title: 'Post 01') }
-#   let!(:post2) { Post.create(author: user2, title: 'Post 02') }
+RSpec.describe 'users', type: :feature do
+  describe 'index' do
+    # let(:user1) { User.create(name: 'Pushkar', photo: 'photo_url', bio: 'text', posts_counter: 0) }
+    # let(:user2) { User.create(name: 'John', photo: 'photo_url_2', bio: 'Rabbit officer', posts_counter: 0) }
+    let(:user1) { User.create(name: 'Nick', photo: 'https://secure.b8cdn.com/images/uploads/user_photos/67/56263867_20211019183159.jpg', bio: 'Rabbit officer', posts_counter: 0) }
 
-#   scenario 'Displays usernames' do
-#     visit users_path
-#     expect(page).to have_content(user1.name)
-#     expect(page).to have_content(user2.name)
-#   end
+    let(:post4) do
+      Post.create(title: 'Hello', text: 'How to make a table', author_id: user1.id, comments_counter: 0,
+                  likes_counter: 0)
+    end
+    let(:post3) do
+      Post.create(title: 'Hi', text: 'How to stay healthy', author_id: user1.id, comments_counter: 0, likes_counter: 0)
+    end
+    let(:post2) do
+      Post.create(title: 'Health recipe', text: 'Eat balance diet', author_id: user1.id, comments_counter: 0,
+                  likes_counter: 0)
+    end
+    let(:post1) do
+      Post.create(title: 'Energy', text: 'How to set the solar system', author_id: user1.id, comments_counter: 0,
+                  likes_counter: 0)
+    end
 
-#   scenario 'Displays profile pictures' do
-#     visit users_path
-#     expect(page).to have_css("img[src='#{user1.photo}']")
-#     expect(page).to have_css("img[src='#{user2.photo}']")
-#   end
+    before(:each) do
+      user1
+      visit users_path
+    end
 
-#   scenario 'Displays post counts' do
-#     visit users_path
-#     expect(page).to have_content("Number of posts: #{user1.posts_counter}")
-#     expect(page).to have_content("Number of posts: #{user2.posts_counter}")
-#   end
+    it 'shows all users' do
+      expect(page).to have_content('Nick')
+    end
 
-#   scenario 'Redirects to user show page when clicked' do
-#     visit users_path
-#     click_link user1.name
-#     sleep(1)
-#     expect(current_path).to eq(user_path(user1))
-#   end
-# end
+    it 'display the photos for each user' do
+      expect(page).to have_css("img[src*='https://secure.b8cdn.com/images/uploads/user_photos/67/56263867_20211019183159.jpg']")
+    end
+
+    it 'Display number of post' do
+      expect(page).to have_content('Number of posts: 0')
+    end
+
+    it 'display number of posts for each user' do
+      expect(page).to have_content("Number of posts: #{user1.posts.count}")
+    end
+
+    it 'Redirect to that user\'s show page on clicking a user' do
+      click_link 'Nick'
+      expect(page).to have_current_path(user_path(user1.id))
+    end
+  end
+end
