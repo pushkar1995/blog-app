@@ -8,5 +8,8 @@
   <%= form.label :text %>
   <%= form.text_area :text %>
 
+  <%= form.hidden :likes_counter, value:0%>
+  <%= form.hidden :comments_counter, value:0%>
+
   <%= form.submit "Create Post" %>
 <% end %>
