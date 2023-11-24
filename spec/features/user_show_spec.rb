@@ -15,14 +15,15 @@
     expect(page).to have_css(".user-photo")
     expect(page).to have_content(@user.name)
     expect(page).to have_content(@user.bio)
-    # expect(page).to have_content("Number of posts: #{@user.posts_counter}")
+    expect(page).to have_content("Number of posts: #{@user.posts.count}")
    end
 
-    scenario 'Displays user 3 posts' do
-      expect(page).to have_content(@post1.title)
-      expect(page).to have_content(@post2.title)
-      expect(page).to have_content(@post3.title)
-    end
+   scenario 'Displays user 3 posts' do
+    visit user_path(@user.id)
+    expect(page).to have_content('Hi Java')
+    expect(page).to have_content('Ruby on Rails')
+    expect(page).to have_content('Gra_Madar')
+  end
 
     scenario 'Displays Button that lets me view all of a user posts, and redirects to the posts when clicked' do
       expect(page).to button_link('See all posts')
@@ -31,17 +32,11 @@
       # expect(current_path).to eq(user_posts_path(@user.id))
     end
 
-    it 'Should redirect to posts index  page when the see all posts butoon is clicked' do
-      see_all_link_element = find('a', text: 'See all posts')
-      see_all_link_element.click
-      expect(current_path).to eq("/users/#{@user.id}/posts")
+    context 'When I click a user\'s post' do
+        it 'redirects me to that post\'s show page' do
+          visit user_path(@user.id)
+          click_link('Hi Java')
+          expect(page).to have_current_path(user_post_path(@user, @post2))
+        end
     end
-
-  #  scenario 'click on user post redirects to that post show page.' do
-  #    visit user_path(user1)
-
-  #    click_link post1.title
-  #    sleep(1)
-  #    expect(current_path).to eq(user_post_path(user1, post1))
-  #  end
  end
