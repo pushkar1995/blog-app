@@ -15,7 +15,6 @@
     expect(page).to have_css(".user-photo")
     expect(page).to have_content(@user.name)
     expect(page).to have_content(@user.bio)
-    # expect(page).to have_content("Number of posts: #{@user.posts_counter}")
    end
 
     scenario 'Displays user 3 posts' do
@@ -26,9 +25,6 @@
 
     scenario 'Displays Button that lets me view all of a user posts, and redirects to the posts when clicked' do
       expect(page).to button_link('See all posts')
-      click_link 'See all posts'
-      # sleep(1)
-      # expect(current_path).to eq(user_posts_path(@user.id))
     end
 
     it 'Should redirect to posts index  page when the see all posts butoon is clicked' do
@@ -37,11 +33,9 @@
       expect(current_path).to eq("/users/#{@user.id}/posts")
     end
 
-  #  scenario 'click on user post redirects to that post show page.' do
-  #    visit user_path(user1)
-
-  #    click_link post1.title
-  #    sleep(1)
-  #    expect(current_path).to eq(user_post_path(user1, post1))
-  #  end
+   scenario 'click on user post redirects to that post show page.' do
+      click_link @post1.title
+      sleep(1)
+      expect(current_path).to eq(user_post_path(@user, @post1))
+    end
  end
