@@ -25,8 +25,8 @@ RSpec.describe 'User', type: :feature do
     scenario 'Displays Button that lets me view all of a user posts, and redirects to the posts when clicked' do
       expect(page).to button_link('See all posts')
       click_link 'See all posts'
-      # sleep(1)
-      # expect(current_path).to eq(user_posts_path(@user.id))
+       sleep(1)
+       expect(current_path).to eq(user_posts_path(@user.id))
     end
 
     it 'Should redirect to posts index  page when the see all posts butoon is clicked' do
@@ -35,11 +35,11 @@ RSpec.describe 'User', type: :feature do
       expect(current_path).to eq("/users/#{@user.id}/posts")
     end
 
-  #  scenario 'click on user post redirects to that post show page.' do
-  #    visit user_path(user1)
+    scenario 'click on user post redirects to that post show page.' do
+      visit user_path(@user)
 
-  #    click_link post1.title
-  #    sleep(1)
-  #    expect(current_path).to eq(user_post_path(user1, post1))
-  #  end
+      click_link post1.title
+      sleep(1)
+      expect(current_path).to eq(user_post_path(@user, @post1))
+    end
  end
