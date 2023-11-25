@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @posts = Post.where(author_id: params[:user_id])
+    @posts = @user.posts.includes(:comments).paginate(page: params[:page], per_page: 6)
   end
 
   def show
@@ -18,17 +18,19 @@ class PostsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    @post = Post.create(author: @user, title: params[:post][:title], text: params[:post][:text], comments_counter: 0,
-                        likes_counter: 0)
+    @post = @user.posts.build(post_params)
+
     if @post.save
-      redirect_to user_posts_path(@user)
+      redirect_to user_post_path(@user, @post), notice: 'Post was successfully created.'
     else
       render :new
     end
   end
 
+  private
+
   def post_params
-    params.require(:post).permit(:title, :text)
+    params.require(:post).permit(:title, :text, :comments_counter, :likes_counter)
   end
 
   def find_post

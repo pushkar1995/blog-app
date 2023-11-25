@@ -7,7 +7,7 @@
 </button>
 
 <div class="user-card">
-  <%= image_tag(@user.photo, alt: @user.name, class: "user-photo") %>
+  <%= image_tag(@user.photo, alt: @user.name, class: "user-photo") if @user.photo.present? %>
   <div class="user-details">
     <h2><%= @user.name %></h2>
     <p>Number of posts: <%= @user.posts.count %></p>
@@ -30,9 +30,5 @@
     </div>
   <% end %>
 
-  <% if @user.posts.count > 3 %>
-    <button class="see-all-posts">
-      <%= link_to "See all posts", user_posts_path(@user), class: "back" %>
-    </button>
-  <% end %>
+  <%= link_to "See all posts", user_posts_path(@user), class: "back" %>
 </div>
