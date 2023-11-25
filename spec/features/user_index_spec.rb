@@ -25,19 +25,16 @@ RSpec.describe 'users', type: :feature do
       visit users_path
     end
 
-    it 'shows all users' do
-      expect(page).to have_content('Nick')
+    it 'Displays all users usernames' do
+      visit users_path
+      expect(page).to have_content(user1.name)
     end
 
     it 'display the photos for each user' do
       expect(page).to have_css("img[src*='https://secure.b8cdn.com/images/uploads/user_photos/67/56263867_20211019183159.jpg']")
     end
 
-    it 'Display number of post' do
-      expect(page).to have_content('Number of posts: 0')
-    end
-
-    it 'display number of posts for each user' do
+    it 'Display number of posts for each user' do
       expect(page).to have_content("Number of posts: #{user1.posts.count}")
     end
 

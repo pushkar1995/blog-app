@@ -30,9 +30,5 @@
     </div>
   <% end %>
 
-  <% if @user.posts.count > 3 %>
-    <button class="see-all-posts">
-      <%= link_to "See all posts", user_posts_path(@user), class: "back" %>
-    </button>
-  <% end %>
+  <%= link_to "See all posts", user_posts_path(@user), class: "back" %>
 </div>

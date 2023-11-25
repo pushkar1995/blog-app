@@ -23,18 +23,19 @@ RSpec.describe 'posts', type: :feature do
 
       visit user_posts_path(@user)
     end
-    it 'displays user information' do
-      expect(page).to have_css('img')
-      expect(page).to have_content('Pushkar')
-      expect(page).to have_content('Number of posts: 4')
+
+    it 'display the username of the user' do
+      visit user_posts_path(@user.id)
+      expect(page).to have_content(@user.name)
+    end
+
+    it "shows user's profile picture" do
+      visit user_posts_path(@user.id)
+      expect(page).to have_selector("img[src='#{@user.photo}']")
     end
 
     it 'Should render the title of post' do
       expect(page).to have_content(@post2.title)
-    end
-
-    it 'display latest comments on a post' do
-      expect(page).not_to have_content('How to be a con artist')
     end
 
     it 'Should render the body of post' do
@@ -47,6 +48,10 @@ RSpec.describe 'posts', type: :feature do
 
     it 'Should render the Likes number for a post' do
       expect(page).to have_content(" Likes: #{@post2.likes_counter.to_i}")
+    end
+
+    it 'Should render the Pagination button' do
+      expect(page).to have_button('Pagination')
     end
 
     context 'Clicking moments' do

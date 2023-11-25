@@ -11,7 +11,7 @@ RSpec.describe 'User', type: :feature do
 
   it 'shows post title' do
     visit "/users/#{@user.id}/posts/#{@first_post.id}"
-    expect(page).to have_content('Pushkar')
+    expect(page).to have_content(@first_post.title)
   end
 
   it 'shows post author' do
@@ -31,6 +31,7 @@ RSpec.describe 'User', type: :feature do
     visit "/users/#{@user.id}/posts/#{@first_post.id}"
     expect(page).to have_content(@first_post.text)
   end
+
   it 'shows the username of all authors' do
     author_name = User.find(@user.id).name
     visit "/users/#{@user.id}/posts/#{@first_post.id}"
