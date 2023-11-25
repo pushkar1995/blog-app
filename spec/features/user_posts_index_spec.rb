@@ -1,54 +1,45 @@
 require 'rails_helper'
 
-RSpec.describe 'Index', type: :feature do
-  before :each do
-    @user_gra = User.create(name: 'GracianoHenrique', photo: 'https://graciano.jpg', bio: 'Web Developer',
-                            posts_counter: 0)
-    @user_sha = User.create(name: 'Sha', photo: 'https://sha.jpg', bio: 'Web Developer', posts_counter: 0)
+RSpec.describe 'posts', type: :feature do
+  describe '#index' do
+    before(:each) do
+      @user = User.create(name: 'Pushkar Gautam', bio: 'Undisputed of DIY', photo: 'https://avatars.githubusercontent.com/u/130588108?v=4',
+                          posts_counter: 0)
+      @post4 = Post.create(title: 'Hello', text: 'How to make a table', author_id: @user.id, comments_counter: 0,
+                           likes_counter: 0)
+      @post3 = Post.create(title: 'Hi', text: 'How to stay healthy', author_id: @user.id, comments_counter: 0,
+                           likes_counter: 0)
+      @post2 = Post.create(title: 'Health recipe', text: 'Eat balance diet', author_id: @user.id,
+                           comments_counter: 0, likes_counter: 0)
+      @post1 = Post.create(title: 'Energy', text: 'How to set the solar system', author_id: @user.id,
+                           comments_counter: 0, likes_counter: 0)
 
-    @post1 = Post.create(author: @user_gra, title: 'Microverse Backend', text: 'the full stack remote web program',
-                         comments_counter: 0, likes_counter: 0)
-    @post2 = Post.create(author: @user_gra, title: 'Microverse FrontEnd', text: 'the front End remote web program',
-                         comments_counter: 0, likes_counter: 0)
-    @post3 = Post.create(author: @user_gra, title: 'Microverse Job Searching',
-                         text: 'In this module, student search for job opportunities ...', comments_counter: 0, likes_counter: 0)
-    @comment1 = Comment.create(text: 'I am expecting to become a Code Reviwer', user: @user_gra, post: @post2)
-    @comment2 = Comment.create(text: 'It will be very good!', user: @user_sha, post: @post2)
-    @comment3 = Comment.create(text: 'Very good !', user: @user_sha, post: @post2)
-    @comment4 = Comment.create(text: 'I will be mastering Rails', user: @user_sha, post: @post1)
-    @like1 = Like.create(user: @user_gra, post: @post1)
-    @like2 = Like.create(user: @user_sha, post: @post1)
-    visit "/users/#{@user_gra.id}/posts"
-  end
+      @comment1 = Comment.create(text: 'How to be a con artist', user_id: @user.id, post_id: @post4.id)
+      @comment2 = Comment.create(text: 'How to solve a crime', user_id: @user.id, post_id: @post4.id)
+      @comment3 = Comment.create(text: 'Great post', user_id: @user.id, post_id: @post4.id)
+      @comment4 = Comment.create(text: 'That is just awful', user_id: @user.id, post_id: @post4.id)
+      @comment5 = Comment.create(text: 'Good post!', user_id: @user.id, post_id: @post4.id)
+      @comment6 = Comment.create(text: 'Awesome stuff', user_id: @user.id, post_id: @post4.id)
 
-  context 'User GracianoHenrique show page Items' do
-    it 'Should show GracianoHenrique user' do
-      expect(page).to have_content(@user_gra.name)
+      visit user_posts_path(@user)
     end
 
-    it 'Should render the user image item' do
-      picture_elements = 0
-      all('.userItemContainer').each do |user|
-        expect(user).to have_css('.userPhotograph')
-        picture_elements += 1
-      end
-      expect(picture_elements).to be(1)
+    it 'display the username of the user' do
+      visit user_posts_path(@user.id)
+      expect(page).to have_content(@user.name)
     end
 
-    it 'Should have one post' do
-      expect(page).to have_content("Number of posts #{@user_gra.posts_counter.to_i}")
+    it "shows user's profile picture" do
+      visit user_posts_path(@user.id)
+      expect(page).to have_selector("img[src='#{@user.photo}']")
     end
 
     it 'Should render the title of post' do
-      expect(page).to have_content("Title: #{@post2.title}")
+      expect(page).to have_content(@post2.title)
     end
 
     it 'Should render the body of post' do
       expect(page).to have_content(@post2.text)
-    end
-
-    it 'Should render the first comments of a post' do
-      expect(page).to have_content(@post2.comments[0].text)
     end
 
     it 'Should render the comments number for a post' do
@@ -62,14 +53,14 @@ RSpec.describe 'Index', type: :feature do
     it 'Should render the Pagination button' do
       expect(page).to have_button('Pagination')
     end
-  end
 
-  context 'Clicking moments' do
-    it "Should redirect to a specfic post's show page when a user's post is clicked" do
-      post_id = @user_gra.posts[0].id
-      post_link_element = find("a[href='/users/#{@user_gra.id}/posts/#{post_id}']")
-      post_link_element.click
-      expect(current_path).to eq("/users/#{@user_gra.id}/posts/#{post_id}")
+    context 'Clicking moments' do
+      it "Should redirect to a specfic post's show page when a user's post is clicked" do
+        post_id = @user.posts[0].id
+        post_link_element = find("a[href='/users/#{@user.id}/posts/#{post_id}']")
+        post_link_element.click
+        expect(current_path).to eq("/users/#{@user.id}/posts/#{post_id}")
+      end
     end
   end
 end

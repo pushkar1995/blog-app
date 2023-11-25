@@ -8,7 +8,11 @@ class Post < ApplicationRecord
   after_save :update_post_counter
 
   def show_post_comments(post, all_comments: false)
-    all_comments ? Comment.includes(:post).where(post_id: post.id) : Comment.includes(:post).where(post_id: post.id).last(5)
+    if all_comments
+      Comment.includes(:post).where(post_id: post.id)
+    else
+      Comment.includes(:post).where(post_id: post.id).last(5)
+    end
   end
 
   private
