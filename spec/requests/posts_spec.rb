@@ -1,42 +1,48 @@
-# require 'rails_helper'
+describe "GET user 's posts /" do
+  before :each do
+    @user_gra = User.create(name: 'GracianoHenrique', photo: 'https://graciano.jpg', bio: 'Web Developer', posts_counter: 0)
+    @user_sha = User.create(name: 'Sha', photo: 'https://sha.jpg', bio: 'Web Developer', posts_counter: 0)
+    @post1 = Post.create(author: @user_gra, title: 'Microverse Backend', text: 'the full stack remote web program',
+                         comments_counter: 0, likes_counter: 0)
+  end
 
-# RSpec.describe 'Posts controller', type: :request do
-#   describe 'GET /users/user_id/posts' do
-#     before do
-#       user = User.create(name: 'Tom', photo: 'https://example.com/photo.jpg')
-#       get user_posts_path(user)
-#     end
+  it 'should return a successfull response' do
+    get "/users/#{@user_gra.id}/posts"
+    expect(response).to be_successful
+  end
 
-#     it 'returns a 200 status code' do
-#       expect(response).to have_http_status(200)
-#     end
+  it 'should match a given user posts' do
+    get "/users/#{@user_gra.id}/posts"
+    expect(response.body).not_to include("Your User's 2 Posts")
+  end
 
-#     it "renders the 'index' template" do
-#       expect(response).to render_template('index')
-#     end
+  it 'should return a 200 response status' do
+    get "/users/#{@user_gra.id}/posts"
+    expect(response.status).to eq(200)
+  end
 
-#     it "includes 'All posts by User' in the response body" do
-#       expect(response.body).to include('All posts by User')
-#     end
-#   end
+  it 'should return a 200 response status' do
+    get '/users/2/posts/GracianoManuelHenrique/1997'
+    expect(response.status).not_to eq(200)
+  end
 
-#   describe 'GET /users/user_id/posts/post_id' do
-#     before do
-#       user = User.create(name: 'Tom')
-#       post = Post.create(author: user, title: 'My Post')
-#       get user_post_path(user, post)
-#     end
+  it 'should render the index template' do
+    get "/users/#{@user_gra.id}/posts"
+    expect(response).to render_template('posts/index')
+  end
 
-#     it 'returns a 200 status code' do
-#       expect(response).to have_http_status(200)
-#     end
+  it 'should return a successfull response' do
+    get '/users/2/posts/1000'
+    expect(response).not_to be_successful
+  end
 
-#     it "renders the 'show' template" do
-#       expect(response).to render_template('show')
-#     end
+  it 'should render the show template' do
+    get '/users/2/posts/1000'
+    expect(response).not_to render_template('posts/show')
+  end
 
-#     it "includes 'Specific post by a Specific User' in the response body" do
-#       expect(response.body).to include('Specific post by a Specific User')
-#     end
-#   end
-# end
+  it 'Should include <<Your User 2  and Post Id 1000>> ' do
+    get '/users/2/posts/1000'
+    expect(response.body).to include('Your User 2  and Post Id 1000')
+  end
+end

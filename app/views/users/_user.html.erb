@@ -1,0 +1,11 @@
+<div class="userItemContainer">
+
+<div class="userPhotograph">
+<%= image_tag "user.svg", alt: "User Image"%>
+</div>
+
+<div class="userDetails">
+<h2><a href=<%="/users/#{user.id}/"%>><%=user.name%></a></h2>
+<p id="numberPosts">Number of posts <%=user.posts_counter || 0%></p>
+</div>
+</div>

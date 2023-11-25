@@ -9,8 +9,6 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # While tests run files are not watched, reloading is not necessary.
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  
   config.enable_reloading = false
 
   # Eager loading loads your entire application. When running a single test locally,
@@ -63,4 +61,6 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+  config.action_controller.default_url_options = { host: 'localhost', port: 3000 }
+
 end

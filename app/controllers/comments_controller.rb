@@ -1,27 +1,17 @@
 class CommentsController < ApplicationController
-  before_action :set_post
-
   def new
-    @comment = Comment.new
+    @user = User.where(email: session[:user_email]).first
+    @comment = @user.posts[params[:post_id].to_i - 1].comments.new
   end
 
   def create
-    @comment = current_user.comments.build(comment_params.merge(post: @post))
-
-    if @comment.save
-      redirect_to user_post_path(@post.author, @post)
+    @comment = Comment.create(text: params[:comment][:text], user: current_user, post_id: params[:post_id])
+    if @comment.new_record?
+      redirect_to "/users/#{params[:user_id]}/posts/#{params[:comment][:url_id]}",
+                  flash: { wrong: 'Upps! Comment was not created.' }
     else
-      render :new
+      redirect_to "/users/#{params[:user_id]}/posts/#{params[:comment][:url_id]}",
+                  flash: { success: 'Comment was successfully created.' }
     end
-  end
-
-  private
-
-  def set_post
-    @post = Post.find(params[:post_id])
-  end
-
-  def comment_params
-    params.require(:comment).permit(:text)
   end
 end

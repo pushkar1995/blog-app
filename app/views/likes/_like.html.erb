@@ -1,0 +1,8 @@
+<section class="likeSection">
+  <%= form_with url: "/users/#{session[:user_id]}/posts/#{post_item.id}/likes" do |form| %>
+    <%= form.hidden_field :post_item_id, value: post_item.id %>
+    <%= button_tag type: 'submit', class:'likeButton' do %>
+      <%= image_tag "like.svg", alt: 'Like', class: 'like-icon' %>
+    <% end %>
+  <% end %>
+</section>

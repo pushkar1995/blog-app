@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Blog</title>
+    <title>BlogApp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "style" %>
     <%= javascript_importmap_tags %>
+    <script src="https://kit.fontawesome.com/4abd53bd39.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    
+  <%= render partial:"layouts/header" if session.key?(:user_email)==true %>
+   <div class="container">
     <%= yield %>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  </div>
   </body>
 </html>

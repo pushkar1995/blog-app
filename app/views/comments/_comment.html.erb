@@ -1,0 +1,8 @@
+<div class="commentItemContainer">
+<%if(comment.text.size>0) %>
+ <p id="commentor"><%=user.name%>:</p>
+<p><%= comment.text%></p></>
+<%else%>
+ <p id="commentor"><%="None!"%>:</p>
+<%end%>
+</div>
