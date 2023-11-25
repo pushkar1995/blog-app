@@ -57,3 +57,11 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+.pagination {
+  border: transparent;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #d3c3c3;
+}

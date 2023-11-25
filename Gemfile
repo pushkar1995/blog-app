@@ -71,3 +71,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
 end
+
+gem 'will_paginate', '~> 3.3'
