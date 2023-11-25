@@ -1,26 +1,13 @@
-<%= link_to 'Back', user_posts_path %>
-<h1>Specific post by a Specific User</h1>
-
-<div class="post">
-  <div class="post-header">
-    <h3><%= @post.title %> by <%= @post.author.name %></h3>
-  </div>
-
-  <div class="post-body">
-    <p><%= @post.text %></p>
-    <p>Comments: <%= @post.comments_counter %>, Likes: <%= @post.likes_counter %></p>
-  </div>
-
-  <div class="post-likes">
-  <%= form_with(model: [@post, @like], url: user_post_likes_path(@post.author, @post), method: :post) do |form| %>
-    <%= form.submit 'Like' %>
-  <% end %>
+<div class="postContainerItem borderRadio">
+<h3 id="titleItem">Title: <%= @post_item.title%></h3>
+<%= render partial: "posts/post_head", locals:{user:@user,post:@post_item,id:@id}%>
+<div class="postDescription">
+<%= @post_item.text%>
 </div>
-
-  <div class="post-comments">
-    <strong><%= link_to "Add comment", new_user_post_comment_path(@post.author, @post) %></strong>
-    <% @post.comments.each do |comment| %>
-      <p><strong><%= comment.user.name %>:</strong> <%= comment.text %></p>
-    <% end %>
-  </div>
+</div>
+<div class="comments">
+<% @post_item.show_post_comments(@post_item,all_comments:true).each do |comment|%>
+<%= render partial: "comments/comment", locals: {comment:comment, user:@user.find_user(comment.user_id)}%>
+<%end%>
+ <%= render partial:"comments/form",locals: {user: @user, post: @post_item, comment: @comment, id:@id}%>
 </div>

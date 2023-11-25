@@ -1,0 +1,8 @@
+<section class="postHeader">
+<div class="userInfo">
+<p>Post #<%=post.id%> by <%=user.name%> </p>
+</div>
+<div>
+ <p id="postStatistic">Comments: <%= post.comments_counter || 0 %>, Likes: <%= post.likes_counter || 0 %></p>
+</div>
+</section>

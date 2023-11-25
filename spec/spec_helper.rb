@@ -63,6 +63,10 @@ RSpec.configure do |config|
   #   # https://rspec.info/features/3-12/rspec-core/configuration/zero-monkey-patching-mode/
   #   config.disable_monkey_patching!
   #
+  #   # This setting enables warnings. It's recommended, but in some cases may
+  #   # be too noisy due to issues in dependencies.
+  #   config.warnings = true
+  #
   #   # Many RSpec users commonly either run the entire suite or an individual
   #   # file, and it's useful to allow more verbose output when running an
   #   # individual spec file.
@@ -90,3 +94,8 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 end
+
+# Capybara.configure do |config|
+#   config.app_host = "http://localhost:3000" # Adjust the port as needed
+#   config.default_driver = :selenium
+# end

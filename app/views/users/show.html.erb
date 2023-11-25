@@ -1,38 +1,15 @@
-<%= link_to 'Back', users_path %>
-
-<h1>Specific User</h1>
-
-<button>
-  <%= link_to "New post", new_user_post_path(@user), class: "back" %>
-</button>
-
-<div class="user-card">
-  <%= image_tag(@user.photo, alt: @user.name, class: "user-photo") %>
-  <div class="user-details">
-    <h2><%= @user.name %></h2>
-    <p>Number of posts: <%= @user.posts.count %></p>
-  </div>
+<%= render partial: "users/user", locals: {user: @user}%>
+<div class="userInformation">
+<div class="userBio borderRadio">
+<h4>Bio</h4>
+<p id="bio"><%=@user.bio%></p>
 </div>
 
-<div class="user-bio">
-  <h2>Bio</h2>
-  <p>
-    <%= @user.bio %>
-  </p>
+<%@user.user_recent_posts.each_with_index do |post,index|%>
+<%= render partial: "posts/post", locals: {user: @user,post: post, index: index}%>
+<%end%>
 </div>
 
-<div class="user-posts">
-  <% @user.posts.limit(3).each do |post| %>
-    <div class="post">
-      <h2><%= link_to "#{post.title}", user_post_path(post.author, post) %></h2>
-      <p><%= post.text %></p>
-      <p class="counter">Comments: <%= post.comments_counter %>, Likes: <%= post.likes_counter %></p>
-    </div>
-  <% end %>
-
-  <% if @user.posts.count > 3 %>
-    <button class="see-all-posts">
-      <%= link_to "See all posts", user_posts_path(@user), class: "back" %>
-    </button>
-  <% end %>
+<div class="seeAll">
+<a href=<%="/users/#{@user.id}/posts"%>><button type="button"> See all posts</button></a>
 </div>

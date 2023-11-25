@@ -1,0 +1,21 @@
+<section class="formSection">
+  <%= form_with(model: [user, post]) do |form| %>
+    <%= form.text_field :title, placeholder:"Post's Title" %>
+    <%= form.text_area :text, size: "60x20", placeholder: "Post's Text" %>
+    <%= form.submit "Create" %>
+  <% end %>
+  <div>
+  <% if flash[:success] %>
+  <div class="success">
+<i class="fa-solid fa-thumbs-up" style="color: #27511f;"></i>
+    <%= flash[:success] %>
+  </div>
+<% end %>
+  <% if flash[:wrong] %>
+  <div class="wrong">
+  <i class="fa-solid fa-thumbs-down" style="color: #f5260f;"></i>
+    <%= flash[:wrong] %>
+  </div>
+<% end %>
+  </div>
+</section>

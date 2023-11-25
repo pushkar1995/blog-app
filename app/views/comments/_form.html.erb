@@ -1,0 +1,22 @@
+<section class="formSection">
+  <%= form_with(model: [user, post,comment]) do |form| %>
+    <%= form.text_area :text, size: "60x20", placeholder: "Write here your comment..." %>
+    <%= form.hidden_field :url_id, value:id %>
+    <%= form.hidden_field :post_item, value:post %>
+    <%= form.submit "Comment" %>
+  <% end %>
+  <div>
+  <% if flash[:success] %>
+  <div class="success">
+  <i class="fa-solid fa-thumbs-up" style="color: #27511f;"></i>
+    <%= flash[:success] %>
+  </div>
+  <% end %>
+  <% if flash[:wrong] %>
+  <div class="wrong">
+  <i class="fa-solid fa-thumbs-down" style="color: #f5260f;"></i>
+    <%= flash[:wrong] %>
+  </div>
+  <% end %>
+  </div>
+</section>

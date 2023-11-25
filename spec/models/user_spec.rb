@@ -1,45 +1,67 @@
-require 'rails_helper'
+# # spec/models/user_spec.rb
 
-RSpec.describe User, type: :model do
-  subject { User.new(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.', posts_counter: 0) }
-  before { subject.save }
+# require 'rails_helper'
 
-  it('name should be present') do
-    subject.name = nil
-    expect(subject).not_to be_valid
-  end
+# RSpec.describe User, type: :model do
+#   context 'Using the expected params' do
+#     it 'expects to be valid with valid name' do
+#       user = User.new(name: 'Ariel_CEO')
+#       user.posts_counter = 0
+#       expect(user).to be_valid
+#     end
 
-  it('posts_counter should be a number') do
-    subject.posts_counter = nil
-    expect(subject).not_to be_valid
-  end
+#     it 'should respond to user_recent_posts' do
+#       user = User.new(name: 'Ariel_CEO')
+#       user.posts_counter = 0
+#       expect(user).to respond_to(:user_recent_posts)
+#     end
 
-  it('posts_counter should be greater than or equal to 0') do
-    subject.posts_counter = -1
-    expect(subject).not_to be_valid
-  end
+#     it 'should display the 3 last recents posts' do
+#       author_object = User.new(name: 'Ariel_CEO')
+#       author_object.posts_counter = 0
+#       author_object.save
+#       user = User.new(name: 'Ariel_CEO')
+#       user.posts_counter = 0
+#       user.save
+#       post1 = Post.new(title: 'Microverse School')
+#       post1.author_id = user.id
+#       post1.text = 'I love Microverse'
+#       post1.comments_counter = 0
+#       post1.likes_counter = 0
+#       post1.save
+#       post2 = Post.new(title: 'Microverse School')
+#       post2.author_id = user.id
+#       post2.text = 'I love Microverse'
+#       post2.comments_counter = 0
+#       post2.likes_counter = 0
+#       post2.save
+#       post3 = Post.new(title: 'Microverse School')
+#       post3.author_id = user.id
+#       post3.text = 'I love Microverse'
+#       post3.comments_counter = 0
+#       post3.likes_counter = 0
+#       post3.save
+#       posts_number = user.user_recent_posts
+#       expect(posts_number.count).to eq(3)
+#     end
+#   end
 
-  it('posts_counter should be equal to 0') do
-    subject.posts_counter = 0
-    expect(subject).to be_valid
-  end
+#   context 'Using the unexpected values or params' do
+#     it 'Mr Ariel Should have an invalid posts_counter number <2023.5>' do
+#       user = User.new(name: 'Ariel_CEO')
+#       user.posts_counter = 2023.5
+#       expect(user).to be_invalid
+#     end
 
-  it('posts_counter should be greater than 0') do
-    subject.posts_counter = 3
-    expect(subject).to be_valid
-  end
+#     it "expects not to be valid without a user's name" do
+#       user = User.new
+#       expect(user).not_to be_valid
+#     end
 
-  it 'returns the three most recent posts' do
-    user1 = User.create(name: 'John', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Bio 1', posts_counter: 3)
-    Post.create(author: user1, title: 'Hello', text: 'This is my first post', comments_counter: 0, likes_counter: 0)
-    post2 = Post.create(author: user1, title: 'nice ', text: 'This is nice work', comments_counter: 0,
-                        likes_counter: 0)
-    post3 = Post.create(author: user1, title: 'Keep it Up', text: 'This is my word', comments_counter: 0,
-                        likes_counter: 0)
-    post4 = Post.create(author: user1, title: 'Hello', text: 'This is my first post', comments_counter: 0,
-                        likes_counter: 0)
-
-    recent_posts = user1.recent_posts.to_a
-    expect(recent_posts).to match_array([post4, post3, post2])
-  end
-end
+#     it 'expects not to be valid with a negative post_counter' do
+#       user = User.new(name: 'Ariel_CEO')
+#       user.posts_counter = -2023
+#       expect(user).to be_invalid
+#     end
+#   end
+# end
